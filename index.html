@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="te">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TypeMaster Pro - Guided Typing Skill Booster</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="navbar">
+        <div class="logo">
+          <i class="fa-solid fa-keyboard"></i>
+          <span>TypeMaster<span class="highlight">Pro</span></span>
+        </div>
+        <div class="nav-actions">
+          <button id="sound-toggle" class="icon-btn" title="Toggle Sound">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+          <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Controls / Mode Selector -->
+      <section class="controls-card">
+        <div class="control-group">
+          <span class="control-label"
+            ><i class="fa-solid fa-clock"></i> Time:</span
+          >
+          <div class="btn-group" id="time-options">
+            <button class="btn-option" data-time="15">15s</button>
+            <button class="btn-option active" data-time="30">30s</button>
+            <button class="btn-option" data-time="60">60s</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <span class="control-label"
+            ><i class="fa-solid fa-list-check"></i> Mode:</span
+          >
+          <div class="btn-group" id="mode-options">
+            <button class="btn-option active" data-mode="words">Words</button>
+            <button class="btn-option" data-mode="sentences">Sentences</button>
+            <button class="btn-option" data-mode="code">Java Code</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Stats Bar -->
+      <section class="stats-bar">
+        <div class="stat-box">
+          <span class="stat-label">TIME</span>
+          <span class="stat-value" id="timer-display">30</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">WPM</span>
+          <span class="stat-value" id="wpm-display">0</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">ACCURACY</span>
+          <span class="stat-value" id="accuracy-display">100%</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">ERRORS</span>
+          <span class="stat-value" id="errors-display">0</span>
+        </div>
+      </section>
+
+      <!-- Main Typing Box -->
+      <main class="typing-area">
+        <div class="text-display" id="text-display">
+          <!-- Dynamic text characters injected via JS -->
+        </div>
+        <input type="text" id="hidden-input" autocomplete="off" autofocus />
+        <div class="typing-hint">
+          <i class="fa-solid fa-hand-pointer"></i> Follow the glowing key on the
+          keyboard below! | Press <kbd>Tab</kbd> + <kbd>Enter</kbd> to restart
+        </div>
+      </main>
+
+      <!-- Virtual Guided Interactive Keyboard -->
+      <section class="keyboard-container">
+        <div class="keyboard" id="virtual-keyboard">
+          <!-- Row 1 -->
+          <div class="key-row">
+            <div class="key" data-key="`">`</div>
+            <div class="key" data-key="1">1</div>
+            <div class="key" data-key="2">2</div>
+            <div class="key" data-key="3">3</div>
+            <div class="key" data-key="4">4</div>
+            <div class="key" data-key="5">5</div>
+            <div class="key" data-key="6">6</div>
+            <div class="key" data-key="7">7</div>
+            <div class="key" data-key="8">8</div>
+            <div class="key" data-key="9">9</div>
+            <div class="key" data-key="0">0</div>
+            <div class="key" data-key="-">-</div>
+            <div class="key" data-key="=">=</div>
+            <div class="key key-wide" data-key="Backspace">Backspace</div>
+          </div>
+          <!-- Row 2 -->
+          <div class="key-row">
+            <div class="key key-medium" data-key="Tab">Tab</div>
+            <div class="key" data-key="q">Q</div>
+            <div class="key" data-key="w">W</div>
+            <div class="key" data-key="e">E</div>
+            <div class="key" data-key="r">R</div>
+            <div class="key" data-key="t">T</div>
+            <div class="key" data-key="y">Y</div>
+            <div class="key" data-key="u">U</div>
+            <div class="key" data-key="i">I</div>
+            <div class="key" data-key="o">O</div>
+            <div class="key" data-key="p">P</div>
+            <div class="key" data-key="[">[</div>
+            <div class="key" data-key="]">]</div>
+            <div class="key" data-key="\">\</div>
+          </div>
+          <!-- Row 3 -->
+          <div class="key-row">
+            <div class="key key-large" data-key="CapsLock">Caps</div>
+            <div class="key" data-key="a">A</div>
+            <div class="key" data-key="s">S</div>
+            <div class="key" data-key="d">D</div>
+            <div class="key" data-key="f">F</div>
+            <div class="key" data-key="g">G</div>
+            <div class="key" data-key="h">H</div>
+            <div class="key" data-key="j">J</div>
+            <div class="key" data-key="k">K</div>
+            <div class="key" data-key="l">L</div>
+            <div class="key" data-key=";">;</div>
+            <div class="key" data-key="'">'</div>
+            <div class="key key-large" data-key="Enter">Enter</div>
+          </div>
+          <!-- Row 4 -->
+          <div class="key-row">
+            <div class="key key-xlarge" data-key="Shift">Shift</div>
+            <div class="key" data-key="z">Z</div>
+            <div class="key" data-key="x">X</div>
+            <div class="key" data-key="c">C</div>
+            <div class="key" data-key="v">V</div>
+            <div class="key" data-key="b">B</div>
+            <div class="key" data-key="n">N</div>
+            <div class="key" data-key="m">M</div>
+            <div class="key" data-key=",">,</div>
+            <div class="key" data-key=".">.</div>
+            <div class="key" data-key="/">/</div>
+            <div class="key key-xlarge" data-key="Shift">Shift</div>
+          </div>
+          <!-- Row 5 -->
+          <div class="key-row">
+            <div class="key key-space" data-key=" ">Space</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Score History Section -->
+      <!-- Score History Section -->
+        <section class="history-section">
+            <div class="history-header">
+                <h3><i class="fa-solid fa-chart-line"></i> Recent Performance</h3>
+                <button id="clear-history-btn" class="clear-btn" title="Clear History">
+                    <i class="fa-solid fa-trash-can"></i> Clear History
+                </button>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mode</th>
+                            <th>WPM</th>
+                            <th>Accuracy</th>
+                            <th>Errors</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-tbody">
+                        <!-- History rows injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+              <!-- History rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="modal-overlay" id="results-modal">
+      <div class="modal-card">
+        <h2><i class="fa-solid fa-trophy"></i> Test Complete!</h2>
+        <div class="modal-stats">
+          <div class="m-stat">
+            <span class="m-val" id="final-wpm">0</span>
+            <span class="m-lbl">WPM</span>
+          </div>
+          <div class="m-stat">
+            <span class="m-val" id="final-accuracy">0%</span>
+            <span class="m-lbl">Accuracy</span>
+          </div>
+          <div class="m-stat">
+            <span class="m-val" id="final-cpm">0</span>
+            <span class="m-lbl">CPM</span>
+          </div>
+          <div class="m-stat">
+            <span class="m-val" id="final-errors">0</span>
+            <span class="m-lbl">Errors</span>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button id="restart-btn" class="primary-btn">
+            <i class="fa-solid fa-rotate-right"></i> Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
